@@ -1,4 +1,4 @@
-package com.example.demomapper.domain;
+package com.example.demomapper.domain.dto;
 
 public class PessoaDTO {
     private String nome;

@@ -19,7 +19,7 @@ public class Pessoa {
         return idade;
     }
 
-    public boolean isManja() {
+    public boolean getManja() {
         return manja;
     }
 }

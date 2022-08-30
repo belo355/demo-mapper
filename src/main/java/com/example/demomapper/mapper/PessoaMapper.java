@@ -1,7 +1,7 @@
-package com.example.demomapper;
+package com.example.demomapper.mapper;
 
 import com.example.demomapper.domain.Pessoa;
-import com.example.demomapper.domain.PessoaDTO;
+import com.example.demomapper.domain.dto.PessoaDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,7 +1,10 @@
-package com.example.demomapper;
+package com.example.demomapper.controller;
 
 import com.example.demomapper.domain.Pessoa;
-import com.example.demomapper.domain.PessoaDTO;
+import com.example.demomapper.domain.dto.PessoaDTO;
+import com.example.demomapper.domain.dto.PessoaDTO2;
+import com.example.demomapper.mapper.PessoaMapper;
+import com.example.demomapper.mapper.PessoaMapperDiff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +22,9 @@ public class PessoaController {
     @Autowired
     private PessoaMapper mapper;
 
+    @Autowired
+    private PessoaMapperDiff mapper2;
+
     @GetMapping("/{nome}")
     public ResponseEntity<PessoaDTO> getPessoa(@PathVariable String nome) {
         List<Pessoa> listPessoas = createListPessoas();
@@ -28,6 +34,16 @@ public class PessoaController {
         }
         PessoaDTO pessoaDTO = mapper.toMapperPessoaDto(listPessoas.get(0));
         return ResponseEntity.ok(pessoaDTO);
+    }
+
+    @GetMapping("/diff/{nome}")
+    public ResponseEntity<PessoaDTO2> getPessoaByNameDiff(@PathVariable String nome) {
+        List<Pessoa> listPessoas = createListPessoas();
+        listPessoas.removeIf(p -> !p.getNome().equalsIgnoreCase(nome));
+        if (listPessoas.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(mapper2.toMapperPessoaDto(listPessoas.get(0)));
     }
 
     private List<Pessoa> createListPessoas() {
